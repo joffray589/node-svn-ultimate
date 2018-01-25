@@ -328,16 +328,16 @@ exports.commands.del = del;
 exports.commands.remove = del;
 exports.commands.rm = del;
 
-// var diff = function( src, dest, options, callback ) {
-	// if ( typeof options === 'function' ) {
-		// callback = options;
-		// options = null;
-	// }
-	// options = options || {};
-	// addExtraOptions( [ 'revision', 'depth', 'force' ], options );
-	// executeSvn( [ 'export', src, dst ], options, callback );
-// };
-// exports.commands.diff = diff;
+var diff = function( src, dest, options, callback ) {
+	if ( typeof options === 'function' ) {
+		callback = options;
+		options = null;
+	}
+	options = options || {};
+	addExtraOptions( [ 'revision', 'depth', 'force' ], options );
+	executeSvn( [ 'export', src, dst ], options, callback );
+};
+exports.commands.diff = diff;
 
 
 /** Exports a file from the repository to a local file
@@ -1013,7 +1013,7 @@ var getTags = function( url, options, callback ) {
 		options = null;
 	}
 	options = options || {};
-	var tagsUrl = parseUrl( url ).tagsUrl;
+	var tagsUrl = options.tagsUrl || parseUrl( url ).tagsUrl;
 	list( tagsUrl, options, function( err, data ) {
 		var result = [];
 		if ( !err && data && data.list && data.list.entry ) {
