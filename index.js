@@ -335,7 +335,7 @@ var diff = function( src, dest, options, callback ) {
 	}
 	options = options || {};
 	addExtraOptions( [ 'revision', 'depth', 'force' ], options );
-	executeSvn( [ 'export', src, dst ], options, callback );
+	executeSvn( [ 'export', src, dest ], options, callback );
 };
 exports.commands.diff = diff;
 
